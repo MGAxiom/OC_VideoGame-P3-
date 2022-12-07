@@ -22,8 +22,7 @@ func readInteger() -> Int? {
 
 
 class Game {
-    let playerOne: Player?
-    let playerTwo: Player?
+    var players: [Player]
     
     init() {
         print("""
@@ -34,7 +33,7 @@ class Game {
         """)
         _ = readLine()
         print("Player One will start by creating a team of 3 characters with a unique name and one determined character archetype.")
-        self.playerOne = Player(name: "Player One")
+        let playerOne = Player(name: "Player One")
         print(
             """
             =======================================
@@ -43,17 +42,36 @@ class Game {
             
             =======================================
             """)
-        self.playerTwo = Player(name: "Player Two")
+        let playerTwo = Player(name: "Player Two")
+        self.players = [playerOne, playerTwo]
+        
+        //Allows us to keep players playing or to stop the game if one player's team is dead
+        var currentPlayerIndex = 0
+        while players[0].team.isAlive() && players[1].team.isAlive() {
+            fight(player: players[currentPlayerIndex])
+            if currentPlayerIndex == 0 {
+                currentPlayerIndex = 1
+            } else {
+                currentPlayerIndex = 0
+            }
+        }
+        // Checks if the first player's is alive and prints its victory, otherwise it prints player two's
+        if players[0].team.isAlive() {
+            print("Player One has won the game !")
+        } else {
+            print("Player Two has won the game !")
+        }
     }
     
-    func fight() {
+    //Function used to determine what happens during a fight
+    func fight(player: Player) {
         
     }
 }
 
 class Player{
     var name: String?
-    let team: Team?
+    let team: Team
     
     init(name: String = "") {
         self.name = name
@@ -66,13 +84,13 @@ class Team {
     var charactersLength = 3
     var characters: [Character] = []
 
-    
+    //Used to add each newly created character and its data into the table Character, also prints its name
     init() {
         print("Player will now create 3 characters.")
         for i in 0..<charactersLength {
             if let charac = createCharacter(characterNumber: i+1) {
-                characters.append(charac)
-                Character.namesTaken.append(charac.name)
+                characters.append(charac) //On rajoute le personnage créer dans le tableau characters
+                Character.namesTaken.append(charac.name) //On rajoute le nom de chaque personnage dans le tableau namesTaken
                 print("\(charac.whoAmI()).")
             }
         }
@@ -84,10 +102,13 @@ class Team {
         print(
             """
             Create character n°\(characterNumber):
-            
+            .
+            .
+            .
             What is the name of your character ?
             """
         )
+        //Function used to let the player give a name to its character. Name is then checked for unicity and restart creation if already taken
         if let characterName = readLine() {
             if Character.namesTaken.contains(characterName) {
                 print("This name has already been given, choose another.")
@@ -100,7 +121,7 @@ class Team {
         return nil
     }
     
-    // Function used to let the player select a character type
+    // Function used to let the player select an archetype for its character
     func askCharacterType(characterName: String) -> Character? {
         print("""
         You can choose one of these archetypes for \(characterName):
@@ -111,6 +132,7 @@ class Team {
         
         What archetype do you choose for \(characterName) ?
         """)
+        // As stated in readInteger() function, player must insert a number within 1 to 3 to select an archetype for its character
         if let choice = readInteger() {
             var character: Character?
             switch choice {
@@ -137,11 +159,23 @@ class Team {
         }
         return nil
     }
+    
+    func isAlive() -> Bool {
+//        return characters.contains { charac in
+//            return charac.hitpoints > 0
+//        }
+        for charac in characters {
+            if charac.hitpoints > 0 {
+                return true
+            }
+        }
+        return false
+    }
 }
 
 class Character {
     var name:  String
-    static var namesTaken: [String] = []
+    static var namesTaken: [String] = [] //Allows us to store each name produced by user and check if its been used for another character
     var hitpoints = 0
     var weapon: Weapon?
     
@@ -201,6 +235,7 @@ class Mage: Character {
 class Weapon {
     var name = ""
     var damagePoints = 0
+    var healPoints = 0
 }
 
 class Sword: Weapon {
@@ -224,6 +259,7 @@ class Staff: Weapon {
         super.init()
         self.damagePoints = 25
         self.name = "Staff"
+        self.healPoints = 75
     }
 }
 
