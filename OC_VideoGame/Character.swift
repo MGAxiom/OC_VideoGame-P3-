@@ -14,6 +14,9 @@ class Character {
     var hitpoints = 0
     var weapon: Weapon
     var allowedActions: [Actions] = []
+    var damageDealt: [Int] = []
+    var damageHealed: [Int] = []
+    
     
     init(name: String, weapon: Weapon) {
         self.name = name
@@ -40,16 +43,18 @@ class Character {
         return chooseAction()
     }
     
-    func performAction(action: Actions, target: Character) {
-//        let attackPoints = weapon?.damagePoints
-//        let weaponName = weapon?.name
-//        let damage = hitpoints - Character.weapon?.damagePoints
+    func performAction(action: Actions, target: Character, character: Character) {
+
         switch action {
         case .attack:
             target.hitpoints -= weapon.damagePoints
+            damageDealt.append(weapon.damagePoints)
+            print("\(character.name) \(action)s \(target.name)")
             print("\(target.name) lost \(weapon.damagePoints) HP and now has \(target.hitpoints) HP.")
         case .heal:
             target.hitpoints += weapon.healPoints
+            damageHealed.append(weapon.healPoints)
+            print("\(character.name) \(action)s \(target.name)")
             print("\(target.name) has been healed for \(weapon.healPoints) HP and now has \(target.hitpoints) HP.")
         }
     }
@@ -58,6 +63,14 @@ class Character {
     // Function called for each type of character created
     func whoAmI() -> String {
         return "I am a generic character named \(name)."
+    }
+    
+    func sumDMG() -> Int {
+        damageDealt.reduce(0, +)
+    }
+    
+    func sumHL() -> Int {
+        damageHealed.reduce(0, +)
     }
 }
 
@@ -100,33 +113,4 @@ class Mage: Character {
     }
 }
 
-class Weapon {
-    var name = ""
-    var damagePoints = 0
-    var healPoints = 0
-}
 
-class Sword: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 50
-        self.name = "Sword"
-    }
-}
-
-class Daggers: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 75
-        self.name = "Daggers"
-    }
-}
-
-class Staff: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 25
-        self.name = "Staff"
-        self.healPoints = 75
-    }
-}

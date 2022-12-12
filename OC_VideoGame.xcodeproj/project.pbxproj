@@ -10,6 +10,7 @@
 		893A1F342940E455001F6060 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A1F332940E455001F6060 /* Character.swift */; };
 		893A1F362940E6B9001F6060 /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A1F352940E6B9001F6060 /* Team.swift */; };
 		893A1F38294101B5001F6060 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A1F37294101B5001F6060 /* Player.swift */; };
+		893A1F3A29437706001F6060 /* Weapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893A1F3929437706001F6060 /* Weapons.swift */; };
 		89F0A03129366100009F4B0F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F0A03029366100009F4B0F /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		893A1F332940E455001F6060 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		893A1F352940E6B9001F6060 /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		893A1F37294101B5001F6060 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		893A1F3929437706001F6060 /* Weapons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapons.swift; sourceTree = "<group>"; };
 		89F0A02D29366100009F4B0F /* OC_VideoGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OC_VideoGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		89F0A03029366100009F4B0F /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 				893A1F37294101B5001F6060 /* Player.swift */,
 				893A1F352940E6B9001F6060 /* Team.swift */,
 				893A1F332940E455001F6060 /* Character.swift */,
+				893A1F3929437706001F6060 /* Weapons.swift */,
 			);
 			path = OC_VideoGame;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 				893A1F362940E6B9001F6060 /* Team.swift in Sources */,
 				89F0A03129366100009F4B0F /* main.swift in Sources */,
 				893A1F342940E455001F6060 /* Character.swift in Sources */,
+				893A1F3A29437706001F6060 /* Weapons.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

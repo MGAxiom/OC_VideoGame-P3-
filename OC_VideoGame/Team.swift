@@ -110,7 +110,7 @@ class Team {
     
     func chooseCharacter() -> Character {
         for (i, charac) in characters.enumerated() {
-            print("\(i + 1): \(charac.name) - \(charac.typeName) - \(charac.hitpoints)")
+            print("\(i + 1): \(charac.name) - \(charac.typeName) : \(charac.hitpoints) HP")
         }
 //        characters.forEach { charac in
 //            let details = charac.hitpoints
@@ -121,7 +121,7 @@ class Team {
                 print("You must choose a valid character.")
                 return chooseCharacter()
             }
-            var chosenCharacter = characters[choice - 1]
+            let chosenCharacter = characters[choice - 1]
             if chosenCharacter.hitpoints <= 0 {
                 print("This character is dead and cannot play.")
                 return chooseCharacter()

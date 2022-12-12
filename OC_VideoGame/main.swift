@@ -79,21 +79,52 @@ class Game {
         
         // Checks if the first player's is alive and prints its victory, otherwise it prints player two's
         if players[0].team.isAlive() {
-            print("Player One has won the game !")
+            print("""
+            ==================================
+                  
+            Player One has won the game !
+                  
+            ==================================
+            """)
+            displayStats(player: players[0], opponent: players[1])
         } else {
-            print("Player Two has won the game !")
+            print("""
+            ==================================
+
+            Player Two has won the game !
+
+            ==================================
+            """)
+            displayStats(player: players[1], opponent: players[0])
         }
     }
     
     //Function used to determine what happens during a fight
     func fight(player: Player, opponent: Player) {
-        var selectedHero = player.chooseCharacter()
-        var action = player.chooseAction(character: selectedHero)
-        var target = player.chooseTarget(action: action, opponent: opponent)
+        let selectedHero = player.chooseCharacter()
+        let action = player.chooseAction(character: selectedHero)
+        let target = player.chooseTarget(action: action, opponent: opponent)
         
-        selectedHero.performAction(action: action, target: target)
+        selectedHero.performAction(action: action, target: target, character: selectedHero)
         
-        print("\(selectedHero.name) \(action) on \(target.name)")
+    }
+    
+    func displayStats(player: Player, opponent: Player) {
+        for (_, charac) in player.team.characters.enumerated() {
+            print("""
+            \(charac.name) - \(charac.typeName) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
+            """)
+        }
+        for (_, charac) in opponent.team.characters.enumerated() {
+            print("""
+            \(charac.name) - \(charac.typeName) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
+            """)
+        }
+        print("""
+        
+        The game lasted \(numberOfTurns) turns.
+
+        """)
     }
 }
 
