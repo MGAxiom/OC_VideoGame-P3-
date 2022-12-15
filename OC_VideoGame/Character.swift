@@ -7,25 +7,32 @@
 
 import Foundation
 
+
 class Character {
-    let name:  String
-    var typeName = ""
-    var namesTaken: [String] = [] //Allows us to store each name produced by user and check if its been used for another character
+    let name: String
+    let typeName: CharacterType
     var hitpoints = 0
-    var weapon: Weapon
-    var allowedActions: [Actions] = []
-    var damageDealt: [Int] = []
-    var damageHealed: [Int] = []
+    let weapon: Weapon
+    fileprivate var allowedActions: [Actions] = []
+    private var damageDealt: [Int] = []
+    private var damageHealed: [Int] = []
     
     
-    init(name: String, weapon: Weapon) {
+    fileprivate init(name: String, weapon: Weapon, typeName: CharacterType) {
         self.name = name
         self.weapon = weapon
+        self.typeName = typeName
     }
     
     enum Actions {
         case attack
         case heal
+    }
+    
+    enum CharacterType: String {
+        case Warrior
+        case Thief
+        case Mage
     }
     
     func chooseAction() -> Actions {
@@ -43,8 +50,7 @@ class Character {
         return chooseAction()
     }
     
-    func performAction(action: Actions, target: Character, character: Character) {
-
+   func performAction(action: Actions, target: Character, character: Character) {
         switch action {
         case .attack:
             target.hitpoints -= weapon.damagePoints
@@ -62,54 +68,39 @@ class Character {
     
     // Function called for each type of character created
     func whoAmI() -> String {
-        return "I am a generic character named \(name)."
+        return "I am a \(typeName.rawValue.lowercased()) named \(name)."
     }
     
-    func sumDMG() -> Int {
+    internal func sumDMG() -> Int {
         damageDealt.reduce(0, +)
     }
     
-    func sumHL() -> Int {
+    internal func sumHL() -> Int {
         damageHealed.reduce(0, +)
     }
 }
 
 class Warrior: Character {
     convenience init(name: String) {
-        self.init(name: name, weapon: Sword())
-        self.typeName = "Warrior"
-        self.hitpoints = 1000
+        self.init(name: name, weapon: Sword(), typeName: CharacterType.Warrior)
+        self.hitpoints = 350
         self.allowedActions = [.attack]
-    }
-    
-    // Overriding generic function, to display a message when a certain character type is selected
-    override func whoAmI() -> String {
-        return "I am a warrior named \(name)."
     }
 }
 
 class Thief: Character {
     convenience init(name: String) {
-        self.init(name: name, weapon: Daggers())
-        self.typeName = "Thief"
-        self.hitpoints = 750
+        self.init(name: name, weapon: Daggers(), typeName: CharacterType.Thief)
+        self.hitpoints = 250
         self.allowedActions = [.attack]
-    }
-    override func whoAmI() -> String {
-        return "I am a thief named \(name)."
     }
 }
 
 class Mage: Character {
     convenience init(name: String) {
-        self.init(name: name, weapon: Staff())
-        self.typeName = "Mage"
-        self.hitpoints = 500
-
+        self.init(name: name, weapon: Staff(), typeName: CharacterType.Mage)
+        self.hitpoints = 100
         self.allowedActions = [.attack, .heal]
-    }
-    override func whoAmI() -> String {
-        return "I am a mage named \(name)."
     }
 }
 

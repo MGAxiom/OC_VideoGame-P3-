@@ -7,23 +7,10 @@
 
 import Foundation
 
-// Function used to force the user to write a number for readLine instead of allowing a String
-func readInteger() -> Int? {
-    if let integerString = readLine() {
-        if let int = Int(integerString) {
-            return int
-        } else {
-            print("Please enter a number")
-            return readInteger()
-        }
-    }
-    return nil
-}
 
-
-class Game {
-    var players: [Player]
-    var numberOfTurns = 0
+public class Game {
+    private let players: [Player]
+    private var numberOfTurns = 0
     
     init() {
         print("""
@@ -49,20 +36,7 @@ class Game {
     }
 
     //Allows us to keep players playing or to stop the game if one player's team is dead
-    func start() {
-//        var currentPlayer = players[0]
-//        var otherPlayer = players[1]
-//        while currentPlayer.team.isAlive() && otherPlayer.team.isAlive() {
-//            fight(player: currentPlayer, opponent: otherPlayer)
-//            let tmpPlayer = currentPlayer
-//            currentPlayer = otherPlayer
-//            otherPlayer = tmpPlayer
-//        }
-//
-        
-        
-        
-        
+    public func start() {
         var currentPlayerIndex = 0
         var otherPlayerIndex = 1
         while players[0].team.isAlive() && players[1].team.isAlive() {
@@ -100,7 +74,7 @@ class Game {
     }
     
     //Function used to determine what happens during a fight
-    func fight(player: Player, opponent: Player) {
+    private func fight(player: Player, opponent: Player) {
         let selectedHero = player.chooseCharacter()
         let action = player.chooseAction(character: selectedHero)
         let target = player.chooseTarget(action: action, opponent: opponent)
@@ -109,15 +83,15 @@ class Game {
         
     }
     
-    func displayStats(player: Player, opponent: Player) {
+    private func displayStats(player: Player, opponent: Player) {
         for (_, charac) in player.team.characters.enumerated() {
             print("""
-            \(charac.name) - \(charac.typeName) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
+            \(charac.name) - \(charac.typeName.rawValue) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
             """)
         }
         for (_, charac) in opponent.team.characters.enumerated() {
             print("""
-            \(charac.name) - \(charac.typeName) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
+            \(charac.name) - \(charac.typeName.rawValue) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
             """)
         }
         print("""

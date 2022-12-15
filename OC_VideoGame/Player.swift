@@ -7,8 +7,8 @@
 
 import Foundation
 
-class Player{
-    var name: String?
+class Player {
+    let name: String
     let team: Team
     
     

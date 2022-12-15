@@ -34,6 +34,6 @@ class Staff: Weapon {
         super.init()
         self.damagePoints = 25
         self.name = "Staff"
-        self.healPoints = 75
+        self.healPoints = 50
     }
 }

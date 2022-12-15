@@ -8,7 +8,7 @@
 import Foundation
 
 class Team {
-    var charactersLength = 3
+    private let charactersLength = 3
     var characters: [Character] = []
 
     //Used to add each newly created character and its data into the table Character, also prints its name
@@ -16,8 +16,8 @@ class Team {
         print("Player will now create 3 characters.")
         for i in 0..<charactersLength {
             if let charac = createCharacter(characterNumber: i+1) {
-                characters.append(charac) //On rajoute le personnage créer dans le tableau characters
-                print("\(charac.whoAmI()).")
+                characters.append(charac) //We add the created character in the array called characters
+                print("\(charac.whoAmI())")
             }
         }
     }
@@ -36,6 +36,10 @@ class Team {
         )
         //Function used to let the player give a name to its character. Name is then checked for unicity and restart creation if already taken
         if let characterName = readLine() {
+            if characterName == "" {
+                print("You must type a name for your character.")
+                return askCharacterName(characterNumber: characterNumber)
+            }
             if characters.contains(where: { character in
                 character.name == characterName
             }) {
@@ -95,7 +99,7 @@ class Team {
     
     
     // Function to create a complete character with a name and character type based on 2 different functions
-    func createCharacter(characterNumber: Int) -> Character? {
+    private func createCharacter(characterNumber: Int) -> Character? {
         if let characterName = askCharacterName(characterNumber: characterNumber) {
             return askCharacterType(characterName: characterName)
         }
@@ -110,12 +114,12 @@ class Team {
     
     func chooseCharacter() -> Character {
         for (i, charac) in characters.enumerated() {
-            print("\(i + 1): \(charac.name) - \(charac.typeName) : \(charac.hitpoints) HP")
+            if charac.hitpoints <= 0 {
+                print("\(i + 1): \(charac.name) - \(charac.typeName) : Dead ")
+            } else {
+                print("\(i + 1): \(charac.name) - \(charac.typeName) : \(charac.hitpoints) HP")
+            }
         }
-//        characters.forEach { charac in
-//            let details = charac.hitpoints
-//            print("\(charac) - \(details)")
-//        }
         if let choice = readInteger() {
             if !(1...charactersLength).contains(choice) {
                 print("You must choose a valid character.")
