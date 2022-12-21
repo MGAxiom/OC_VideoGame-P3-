@@ -36,7 +36,7 @@ class Team {
         )
         //Function used to let the player give a name to its character. Name is then checked for unicity and restart creation if already taken
         if let characterName = readLine() {
-            if characterName == "" {
+            if characterName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                 print("You must type a name for your character.")
                 return askCharacterName(characterNumber: characterNumber)
             }

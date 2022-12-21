@@ -8,32 +8,31 @@
 import Foundation
 
 class Weapon {
-    var name = ""
-    var damagePoints = 0
-    var healPoints = 0
+    let name: String
+    let damagePoints: Int
+    let healPoints: Int
+    
+    init(name: String, damagePoints: Int, healPoints: Int) {
+        self.name = name
+        self.damagePoints = damagePoints
+        self.healPoints = healPoints
+    }
 }
 
 class Sword: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 50
-        self.name = "Sword"
+    init() {
+        super.init(name: "Sword", damagePoints: 50, healPoints: 0)
     }
 }
 
 class Daggers: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 75
-        self.name = "Daggers"
+    init() {
+        super.init(name: "Daggers", damagePoints: 75, healPoints: 0)
     }
 }
 
 class Staff: Weapon {
-    override init() {
-        super.init()
-        self.damagePoints = 25
-        self.name = "Staff"
-        self.healPoints = 50
+    init() {
+        super.init(name: "Staff", damagePoints: 25, healPoints: 50)
     }
 }

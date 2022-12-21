@@ -13,7 +13,7 @@ class Character {
     let typeName: CharacterType
     var hitpoints = 0
     let weapon: Weapon
-    fileprivate var allowedActions: [Actions] = []
+    var allowedActions: [Actions] = []
     private var damageDealt: [Int] = []
     private var damageHealed: [Int] = []
     
@@ -71,37 +71,36 @@ class Character {
         return "I am a \(typeName.rawValue.lowercased()) named \(name)."
     }
     
-    internal func sumDMG() -> Int {
+    func sumDMG() -> Int {
         damageDealt.reduce(0, +)
     }
     
-    internal func sumHL() -> Int {
+    func sumHL() -> Int {
         damageHealed.reduce(0, +)
     }
 }
 
 class Warrior: Character {
-    convenience init(name: String) {
-        self.init(name: name, weapon: Sword(), typeName: CharacterType.Warrior)
+    init(name: String) {
+        super.init(name: name, weapon: Sword(), typeName: CharacterType.Warrior)
         self.hitpoints = 350
         self.allowedActions = [.attack]
     }
 }
 
 class Thief: Character {
-    convenience init(name: String) {
-        self.init(name: name, weapon: Daggers(), typeName: CharacterType.Thief)
+    init(name: String) {
+        super.init(name: name, weapon: Daggers(), typeName: CharacterType.Thief)
         self.hitpoints = 250
         self.allowedActions = [.attack]
     }
 }
 
 class Mage: Character {
-    convenience init(name: String) {
-        self.init(name: name, weapon: Staff(), typeName: CharacterType.Mage)
+    init(name: String) {
+        super.init(name: name, weapon: Staff(), typeName: CharacterType.Mage)
         self.hitpoints = 100
         self.allowedActions = [.attack, .heal]
     }
 }
-
 

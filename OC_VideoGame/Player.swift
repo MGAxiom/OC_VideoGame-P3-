@@ -12,7 +12,7 @@ class Player {
     let team: Team
     
     
-    init(name: String = "") {
+    init(name: String) {
         self.name = name
         self.team = Team()
     }
