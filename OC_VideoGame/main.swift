@@ -9,7 +9,7 @@ import Foundation
 
 
 public class Game {
-    private let players: [Player]
+    let players: [Player]
     private var numberOfTurns = 0
     
     init() {
@@ -39,8 +39,8 @@ public class Game {
     public func start() {
         var currentPlayerIndex = 0
         var otherPlayerIndex = 1
-        while players[0].team.isAlive() && players[1].team.isAlive() {
-            fight(player: players[currentPlayerIndex], opponent: players[otherPlayerIndex])
+        while players[0].teamIsAlive() && players[1].teamIsAlive() {
+            players[0].fight(player: players[currentPlayerIndex], opponent: players[otherPlayerIndex])
             if currentPlayerIndex == 0 {
                 currentPlayerIndex = 1
                 otherPlayerIndex = 0
@@ -52,7 +52,7 @@ public class Game {
         }
         
         // Checks if the first player's is alive and prints its victory, otherwise it prints player two's
-        if players[0].team.isAlive() {
+        if players[0].teamIsAlive() {
             print("""
             ==================================
                   
@@ -60,7 +60,6 @@ public class Game {
                   
             ==================================
             """)
-            displayStats(player: players[0], opponent: players[1])
         } else {
             print("""
             ==================================
@@ -69,36 +68,11 @@ public class Game {
 
             ==================================
             """)
-            displayStats(player: players[1], opponent: players[0])
         }
-    }
-    
-    //Function used to determine what happens during a fight
-    private func fight(player: Player, opponent: Player) {
-        let selectedHero = player.chooseCharacter()
-        let action = player.chooseAction(character: selectedHero)
-        let target = player.chooseTarget(action: action, opponent: opponent)
         
-        selectedHero.performAction(action: action, target: target, character: selectedHero)
-        
-    }
-    
-    private func displayStats(player: Player, opponent: Player) {
-        for (_, charac) in player.team.characters.enumerated() {
-            print("""
-            \(charac.name) - \(charac.typeName.rawValue) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
-            """)
-        }
-        for (_, charac) in opponent.team.characters.enumerated() {
-            print("""
-            \(charac.name) - \(charac.typeName.rawValue) - \(charac.sumDMG()) damage dealt and \(charac.sumHL()) damage healed
-            """)
-        }
-        print("""
-        
-        The game lasted \(numberOfTurns) turns.
-
-        """)
+        players[0].displayTeam()
+        players[1].displayTeam()
+        print("The game lasted \(numberOfTurns) turns")
     }
 }
 

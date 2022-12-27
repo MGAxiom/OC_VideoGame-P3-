@@ -80,7 +80,7 @@ class Character {
     }
 }
 
-class Warrior: Character {
+final class Warrior: Character {
     init(name: String) {
         super.init(name: name, weapon: Sword(), typeName: CharacterType.Warrior)
         self.hitpoints = 350
@@ -88,7 +88,7 @@ class Warrior: Character {
     }
 }
 
-class Thief: Character {
+final class Thief: Character {
     init(name: String) {
         super.init(name: name, weapon: Daggers(), typeName: CharacterType.Thief)
         self.hitpoints = 250
@@ -96,7 +96,7 @@ class Thief: Character {
     }
 }
 
-class Mage: Character {
+final class Mage: Character {
     init(name: String) {
         super.init(name: name, weapon: Staff(), typeName: CharacterType.Mage)
         self.hitpoints = 100
